@@ -114,7 +114,6 @@ io.on('connection', client => {
        writeGame(updatedGame, updatedGame.id); 
        var gameToSend = readGame(updatedGame.id);
        client.to(GameID).emit('UpdatedGame', gameToSend);
-       git 
        var user = readUser(updatedGame.player1);
        var user2 = readUser(updatedGame.player2);
        // update game name on user file
