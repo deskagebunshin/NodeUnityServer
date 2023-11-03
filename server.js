@@ -108,11 +108,26 @@ io.on('connection', client => {
        console.log("UpdateGame");
        updatedGame = JSON.parse(game);
        updatedGame.name = updatedGame.words[0].word;
-        console.log(updatedGame);
-        console.log(updatedGame.id);
-        writeGame(updatedGame, updatedGame.id); 
-        var gameToSend = readGame(updatedGame.id);
-        client.to(GameID).emit('UpdatedGame', gameToSend);
+       
+       console.log(updatedGame);
+       console.log(updatedGame.id);
+       writeGame(updatedGame, updatedGame.id); 
+       var gameToSend = readGame(updatedGame.id);
+       client.to(GameID).emit('UpdatedGame', gameToSend);
+       git 
+       var user = readUser(game.player1);
+       var user2 = readUser(game.player2);
+       // update game name on user file
+        user.games.forEach(element => {
+        if(element.id == updatedGame.id && element.name != updatedGame.name){
+            element.name = updatedGame.name;
+            writeUser(game.player1, user);
+        }});
+        user2.games.forEach(element => {
+        if(element.id == updatedGame.id && element.name != updatedGame.name){
+            element.name = updatedGame.name;
+            writeUser(game.player2, user2);
+        }});
     });
 
 });
