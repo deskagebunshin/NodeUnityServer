@@ -111,7 +111,7 @@ io.on('connection', client => {
         console.log(updatedGame);
         console.log(updatedGame.id);
         writeGame(updatedGame, updatedGame.id); 
-        var gameToSend = readGame(game.id);
+        var gameToSend = readGame(updatedGame.id);
         client.to(GameID).emit('UpdatedGame', gameToSend);
     });
 
