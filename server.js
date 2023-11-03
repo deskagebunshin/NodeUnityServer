@@ -9,6 +9,7 @@ console.log("my address: " + ip.address());
 io.on('connection', client => {
 
     var ID = client.id;
+    var GameID;
     console.log("connection");
     
     client.on('event', data => { console.log("event"); });
@@ -31,6 +32,8 @@ io.on('connection', client => {
         var game = readGame(id);
         console.log(game);
         client.emit('startGame', game);
+        client.join(id);
+        GameID = id;
     });
 
     client.on('getUserName', (id) => { 
@@ -81,6 +84,8 @@ io.on('connection', client => {
         writeGame(game, game.id);
         writeUser(game.player2, user2);
         writeUser(game.player1, user);
+        client.join(gameID);
+        GameID = game.id;
     });
 
     
@@ -101,8 +106,11 @@ io.on('connection', client => {
 
     client.on('UpdateGame', (game) => {
        console.log("UpdateGame");
-        console.log(game);
-        writeGame(game, game.id); 
+       updatedGame = JSON.parse(game)
+        console.log(updatedGame);
+        console.log(updatedGame.id);
+        writeGame(updatedGame, updatedGame.id); 
+        socket.to(GameID).emit('UpdatedGame', game);
     });
 
 });
