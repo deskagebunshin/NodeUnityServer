@@ -106,11 +106,13 @@ io.on('connection', client => {
 
     client.on('UpdateGame', (game) => {
        console.log("UpdateGame");
-       updatedGame = JSON.parse(game)
+       updatedGame = JSON.parse(game);
+       updatedGame.name = updatedGame.words[0].word;
         console.log(updatedGame);
         console.log(updatedGame.id);
         writeGame(updatedGame, updatedGame.id); 
-        client.to(GameID).emit('UpdatedGame', game);
+        var gameToSend = readGame(game.id);
+        client.to(GameID).emit('UpdatedGame', gameToSend);
     });
 
 });
