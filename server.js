@@ -110,7 +110,7 @@ io.on('connection', client => {
         console.log(updatedGame);
         console.log(updatedGame.id);
         writeGame(updatedGame, updatedGame.id); 
-        socket.to(GameID).emit('UpdatedGame', game);
+        client.to(GameID).emit('UpdatedGame', game);
     });
 
 });
