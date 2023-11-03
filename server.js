@@ -115,18 +115,18 @@ io.on('connection', client => {
        var gameToSend = readGame(updatedGame.id);
        client.to(GameID).emit('UpdatedGame', gameToSend);
        git 
-       var user = readUser(game.player1);
-       var user2 = readUser(game.player2);
+       var user = readUser(updatedGame.player1);
+       var user2 = readUser(updatedGame.player2);
        // update game name on user file
         user.games.forEach(element => {
         if(element.id == updatedGame.id && element.name != updatedGame.name){
             element.name = updatedGame.name;
-            writeUser(game.player1, user);
+            writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
         if(element.id == updatedGame.id && element.name != updatedGame.name){
             element.name = updatedGame.name;
-            writeUser(game.player2, user2);
+            writeUser(updatedGame.player2, user2);
         }});
     });
 
