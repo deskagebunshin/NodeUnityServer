@@ -120,13 +120,13 @@ io.on('connection', client => {
         user.games.forEach(element => {
         if(element.id == updatedGame.id){   
             element.name = updatedGame.name;
-            element.turn = updatedGame.turn;
+            element.turn = updatedGame.turn == 0 ? true : false;
             writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
         if(element.id == updatedGame.id){
             element.name = updatedGame.name;
-            element.turn = updatedGame.turn;
+            element.turn = updatedGame.turn == 1 ? true : false;
             writeUser(updatedGame.player2, user2);
         }});
     });
