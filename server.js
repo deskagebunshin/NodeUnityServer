@@ -108,7 +108,7 @@ io.on('connection', client => {
        console.log("UpdateGame");
        updatedGame = JSON.parse(game);
        updatedGame.name = updatedGame.words[0].word;
-       
+       updatedGame.turn = updatedGame.words.length % 2;
        console.log(updatedGame);
        console.log(updatedGame.id);
        writeGame(updatedGame, updatedGame.id); 
@@ -118,13 +118,15 @@ io.on('connection', client => {
        var user2 = readUser(updatedGame.player2);
        // update game name on user file
         user.games.forEach(element => {
-        if(element.id == updatedGame.id && element.name != updatedGame.name){
+        if(element.id == updatedGame.id){   
             element.name = updatedGame.name;
+            element.turn = updatedGame.turn;
             writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
-        if(element.id == updatedGame.id && element.name != updatedGame.name){
+        if(element.id == updatedGame.id){
             element.name = updatedGame.name;
+            element.turn = updatedGame.turn;
             writeUser(updatedGame.player2, user2);
         }});
     });
