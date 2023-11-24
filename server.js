@@ -121,12 +121,18 @@ io.on('connection', client => {
         if(element.id == updatedGame.id){   
             element.name = updatedGame.name;
             element.turn = updatedGame.turn == 0 ? true : false;
+            element.player1Score = updatedGame.player1Score;
+            element.player2Score = updatedGame.player2Score;
+            element.player1 = true;
             writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
         if(element.id == updatedGame.id){
             element.name = updatedGame.name;
             element.turn = updatedGame.turn == 1 ? true : false;
+            element.player1Score = updatedGame.player1Score;
+            element.player2Score = updatedGame.player2Score;
+            element.player1 = false;
             writeUser(updatedGame.player2, user2);
         }});
     });
