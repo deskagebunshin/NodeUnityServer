@@ -77,8 +77,8 @@ io.on('connection', client => {
         }
         var user = readUser(game.player1);
         var user2 = readUser(game.player2);
-        user.games.push({name: name, id: gameID, opponent: game.player2});
-        user2.games.push({name: name, id: gameID, opponent: game.player1});
+        user.games.push({name: name, id: gameID, turn: true, opponent: game.player2});
+        user2.games.push({name: name, id: gameID, turn: false, opponent: game.player1});
         client.emit('createdNewGame', game);
         console.log(game);
         writeGame(game, game.id);
@@ -124,6 +124,7 @@ io.on('connection', client => {
             element.player1Score = updatedGame.player1Score;
             element.player2Score = updatedGame.player2Score;
             element.player1 = true;
+            element.iconCubes = updatedGame.iconCubes;
             writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
@@ -133,6 +134,7 @@ io.on('connection', client => {
             element.player1Score = updatedGame.player1Score;
             element.player2Score = updatedGame.player2Score;
             element.player1 = false;
+            element.iconCubes = updatedGame.iconCubes;
             writeUser(updatedGame.player2, user2);
         }});
     });
