@@ -127,7 +127,9 @@ io.on('connection', client => {
             element.iconCubes = updatedGame.iconCubes;
             element.gameOver = updatedGame.gameOver;
             element.resignation = updatedGame.resignation;
-            if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player1){
+            element.gameFinishedBy = updatedGame.gameFinishedBy;
+
+            if(element.gameOver && updatedGame.gameFinishedBy == updatedGame.player1){
                 console.log("game over for player 1");
                 var index = user.games.indexOf(element);
                 user.games.splice(index, 1);
@@ -136,7 +138,7 @@ io.on('connection', client => {
         }});
 
         console.log("updated game over for player 1" + updatedGame.gameOver);
-        console.log("updated game finishedBy" + updatedGame.gameFinisheBy);
+        console.log("updated game finishedBy" + updatedGame.gameFinishedBy);
         console.log("updated game player1" + updatedGame.player1);
         console.log("updated game player2" + updatedGame.player2);
 
@@ -150,7 +152,8 @@ io.on('connection', client => {
             element.iconCubes = updatedGame.iconCubes;
             element.gameOver = updatedGame.gameOver;
             element.resignation = updatedGame.resignation;
-            if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player2){
+            element.gameFinishedBy = updatedGame.gameFinishedBy;
+            if(element.gameOver && updatedGame.gameFinishedBy == updatedGame.player2){
                 console.log("game over for player 2");
 
                 var index = user2.games.indexOf(element);
