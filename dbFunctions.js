@@ -31,6 +31,9 @@ function readUserData(id){
     for(var i = 0; i < users.length; i++){
         var friendData = readUser(users[i]);
         var friend = {name: friendData.name, id: users[i]};
+        if(friend.name == null || friend.name == undefined || friend.name == "" || friend.name == "new user"){
+            continue;
+        }
         friends.push(friend);
     }
 
