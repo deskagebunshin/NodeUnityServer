@@ -126,8 +126,15 @@ io.on('connection', client => {
             element.player1 = true;
             element.iconCubes = updatedGame.iconCubes;
             element.gameOver = updatedGame.gameOver;
+            element.resignation = updatedGame.resignation;
+            if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player1){
+                var index = user.games.indexOf(element);
+                user.games.splice(index, 1);
+            }
             writeUser(updatedGame.player1, user);
         }});
+
+
         user2.games.forEach(element => {
         if(element.id == updatedGame.id){
             element.name = updatedGame.name;
@@ -137,7 +144,11 @@ io.on('connection', client => {
             element.player1 = false;
             element.iconCubes = updatedGame.iconCubes;
             element.gameOver = updatedGame.gameOver;
-
+            element.resignation = updatedGame.resignation;
+            if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player2){
+                var index = user.games.indexOf(element);
+                user.games.splice(index, 1);
+            }
             writeUser(updatedGame.player2, user2);
         }});
     });
