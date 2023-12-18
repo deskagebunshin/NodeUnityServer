@@ -2,7 +2,7 @@ const server = require('http').createServer();
 const io = require('socket.io')(server);
 const ip = require('ip');
 const { readUserData, writeGame, readUser, writeUser, getNewGameId, readGame } = require('./dbFunctions');
-const { debug } = require('console');
+const { debug, Console } = require('console');
 
 console.log("my address: " + ip.address());
 
@@ -128,6 +128,7 @@ io.on('connection', client => {
             element.gameOver = updatedGame.gameOver;
             element.resignation = updatedGame.resignation;
             if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player1){
+                Console.log("game over for player 1");
                 var index = user.games.indexOf(element);
                 user.games.splice(index, 1);
             }
@@ -146,6 +147,8 @@ io.on('connection', client => {
             element.gameOver = updatedGame.gameOver;
             element.resignation = updatedGame.resignation;
             if(element.gameOver && updatedGame.gameFinisheBy == updatedGame.player2){
+                Console.log("game over for player 2");
+
                 var index = user2.games.indexOf(element);
                 user2.games.splice(index, 1);
             }
