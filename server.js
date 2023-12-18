@@ -135,7 +135,10 @@ io.on('connection', client => {
             writeUser(updatedGame.player1, user);
         }});
 
-
+        Console.log("updated game over for player 1" + updatedGame.gameOver);
+        Console.log("updated game finishedBy" + updatedGame.gameFinisheBy);
+        Console.log("updated game player1" + updatedGame.player1);
+        
         user2.games.forEach(element => {
         if(element.id == updatedGame.id){
             element.name = updatedGame.name;
