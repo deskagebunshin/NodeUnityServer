@@ -125,6 +125,7 @@ io.on('connection', client => {
             element.player2Score = updatedGame.player2Score;
             element.player1 = true;
             element.iconCubes = updatedGame.iconCubes;
+            element.gameOver = updatedGame.gameOver;
             writeUser(updatedGame.player1, user);
         }});
         user2.games.forEach(element => {
@@ -135,6 +136,8 @@ io.on('connection', client => {
             element.player2Score = updatedGame.player2Score;
             element.player1 = false;
             element.iconCubes = updatedGame.iconCubes;
+            element.gameOver = updatedGame.gameOver;
+
             writeUser(updatedGame.player2, user2);
         }});
     });
