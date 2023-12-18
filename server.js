@@ -107,8 +107,10 @@ io.on('connection', client => {
     client.on('UpdateGame', (game) => {
        console.log("UpdateGame");
        updatedGame = JSON.parse(game);
-       updatedGame.name = updatedGame.words[0].word;
-       updatedGame.turn = updatedGame.words.length % 2;
+       if(updatedGame.words == null || updatedGame.words == undefined || updatedGame.words == ""){
+            updatedGame.name = updatedGame.words[0].word;
+            updatedGame.turn = updatedGame.words.length % 2;
+       }
        console.log(updatedGame);
        console.log(updatedGame.id);
        writeGame(updatedGame, updatedGame.id); 
