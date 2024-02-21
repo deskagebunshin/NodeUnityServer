@@ -24,15 +24,17 @@ io.on('connection', client => {
         if(userData === undefined){
             debug.log("user not found");
         }
+        console.log("loged in:" + userData.name);
         client.emit('loggedIn', userData);
     });
 
     client.on('deletePlayerID', () => {
+        console.log("deletePlayerID");
         deletePlayer(ID);
     });
 
     client.on('getGame', (id) => {
-        console.log("getGame" + id);
+        console.log("getting Game: " + id);
         var game = readGame(id);
         console.log(game);
         client.emit('startGame', game);
@@ -41,13 +43,13 @@ io.on('connection', client => {
     });
 
     client.on('getUserName', (id) => { 
-        console.log("getUserName");
         var user = readUser(id);
+        console.log("gettin User Name: " + user.name);
         client.emit('getUserName', user.name);
     });
 
     client.on('setPlayerName', (name) => {
-        console.log("setPlayerName");
+        console.log("Setting Player Name to: " + name);
         var user = readUser(ID);
         user.name = name;
         writeUser(ID, user);
@@ -68,9 +70,8 @@ io.on('connection', client => {
     });
 
     client.on('createNewGame', (game) => {
-        console.log("createNewGame" );
-        console.log("new game:");
-        console.log(game);
+        console.log("createing New Game" );
+
         var gameID = getNewGameId();
         game.id = gameID;
         var name;
@@ -84,7 +85,6 @@ io.on('connection', client => {
         user.games.push({name: name, id: gameID, turn: true, opponent: game.player2});
         user2.games.push({name: name, id: gameID, turn: false, opponent: game.player1});
         client.emit('createdNewGame', game);
-        console.log(game);
         writeGame(game, game.id);
         writeUser(game.player2, user2);
         writeUser(game.player1, user);
@@ -115,8 +115,6 @@ io.on('connection', client => {
             updatedGame.name = updatedGame.words[0].word;
             updatedGame.turn = updatedGame.words.length % 2;
        }
-       console.log(updatedGame);
-       console.log(updatedGame.id);
        writeGame(updatedGame, updatedGame.id); 
        var gameToSend = readGame(updatedGame.id);
        client.to(GameID).emit('UpdatedGame', gameToSend);
