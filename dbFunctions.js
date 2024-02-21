@@ -103,6 +103,13 @@ function getNewGameId(){
     return "xxx"+id.id;
 }
 
+function deletePlayer(id){
+    if(fs.existsSync("Users/"+id+".json")){
+        fs.unlinkSync("Users/"+id+".json");
+    }
+    return;
+}
+
 function readGame(id){
 
     if(!fs.existsSync("Games/"+id+".json")){
@@ -116,4 +123,4 @@ function readGame(id){
     return data;
 }
 
-module.exports = {readUserData, writeGame, readUser, writeUser, addGameToOpenGames, removeGameFromOpenGames, getNewGameId, readGame};
+module.exports = {deletePlayer, readUserData, writeGame, readUser, writeUser, addGameToOpenGames, removeGameFromOpenGames, getNewGameId, readGame};

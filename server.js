@@ -1,7 +1,7 @@
 const server = require('http').createServer();
 const io = require('socket.io')(server);
 const ip = require('ip');
-const { readUserData, writeGame, readUser, writeUser, getNewGameId, readGame } = require('./dbFunctions');
+const { readUserData, deletePlayer, writeGame, readUser, writeUser, getNewGameId, readGame } = require('./dbFunctions');
 const { debug, Console } = require('console');
 
 console.log("my address: " + ip.address());
@@ -25,6 +25,10 @@ io.on('connection', client => {
             debug.log("user not found");
         }
         client.emit('loggedIn', userData);
+    });
+
+    client.on('deletePlayerID', () => {
+        deletePlayer(ID);
     });
 
     client.on('getGame', (id) => {
